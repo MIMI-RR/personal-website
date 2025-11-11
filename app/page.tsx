@@ -24,12 +24,12 @@ const Page = () => {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  // 🌿 Auto-rotate every 8 seconds unless paused
+  // 🌿 Auto-rotate every 14 seconds for slow, relaxed reading
   useEffect(() => {
     if (paused) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 8000);
+    }, 14000); // 14 seconds
     return () => clearInterval(timer);
   }, [paused]);
 
@@ -58,11 +58,11 @@ const Page = () => {
         <div
           className="relative max-w-3xl mx-auto overflow-hidden"
           onMouseEnter={() => setPaused(true)}   // Pause on hover
-          onMouseLeave={() => setPaused(false)}  // Resume when leaving
+          onMouseLeave={() => setPaused(false)}  // Resume on mouse leave
         >
           {/* Slide container */}
           <div
-            className="flex transition-transform duration-[1500ms] ease-in-out"
+            className="flex transition-transform duration-[2000ms] ease-in-out"
             style={{
               transform: `translateX(-${current * 100}%)`,
               width: `${slides.length * 100}%`,
@@ -119,4 +119,3 @@ const Page = () => {
 };
 
 export default Page;
-
