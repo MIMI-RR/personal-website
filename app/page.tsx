@@ -23,10 +23,11 @@ const slides = [
 const Page = () => {
   const [current, setCurrent] = useState(0);
 
+  // 🌿 Auto-rotate every 8 seconds (slower and calmer)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
@@ -53,8 +54,9 @@ const Page = () => {
       <section className="py-16 bg-white text-center">
         <h2 className="text-3xl font-semibold mb-8">Wellness Services</h2>
         <div className="relative max-w-3xl mx-auto overflow-hidden">
+          {/* Slide container */}
           <div
-            className="flex transition-transform duration-700 ease-in-out"
+            className="flex transition-transform duration-[1500ms] ease-in-out"
             style={{ transform: `translateX(-${current * 100}%)`, width: `${slides.length * 100}%` }}
           >
             {slides.map((slide, index) => (
@@ -68,13 +70,13 @@ const Page = () => {
             ))}
           </div>
 
-          {/* Dots */}
+          {/* Navigation Dots */}
           <div className="flex justify-center mt-6 space-x-2">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrent(index)}
-                className={`w-3 h-3 rounded-full ${
+                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
                   index === current ? "bg-emerald-600" : "bg-emerald-300"
                 }`}
               />
@@ -108,3 +110,4 @@ const Page = () => {
 };
 
 export default Page;
+
