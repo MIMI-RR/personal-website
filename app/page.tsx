@@ -82,13 +82,14 @@ export default function Page() {
           onTouchEnd={handleTouchEnd}
         >
           {/* Slides */}
-          <div
+         <div
             className="flex transition-transform duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
             style={{
-              transform: `translateX(-${current * 100}%)`,
-              width: `${slides.length * 100}%`,
-            }}
-          >
+            transform: `translateX(-${current * 100}%)`,
+            width: `${slides.length * 100}%`,
+              }}
+              >
+           
             {slides.map((slide, i) => (
               <div
                 key={i}
