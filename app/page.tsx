@@ -23,21 +23,27 @@ const slides = [
 export default function Page() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
-  const intervalRef = useRef(null);
-  const touchStartX = useRef(0);
 
-  // 🌿 Auto-rotate every 14s (relaxed pace)
+  // ✅ Properly typed interval ref for TypeScript
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const touchStartX = useRef<number>(0);
+
+  // 🌿 Auto-rotate every 14s
   useEffect(() => {
     if (paused) return;
     intervalRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 14000);
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [paused]);
 
-  // 👆 Swipe support for mobile
-  const handleTouchStart = (e) => (touchStartX.current = e.touches[0].clientX);
-  const handleTouchEnd = (e) => {
+  // 👆 Swipe support
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) =>
+    (touchStartX.current = e.touches[0].clientX);
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 60) {
       if (diff > 0) setCurrent((prev) => (prev + 1) % slides.length);
