@@ -22,14 +22,16 @@ const slides = [
 
 const Page = () => {
   const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  // 🌿 Auto-rotate every 8 seconds (slower and calmer)
+  // 🌿 Auto-rotate every 8 seconds unless paused
   useEffect(() => {
+    if (paused) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 8000);
     return () => clearInterval(timer);
-  }, []);
+  }, [paused]);
 
   return (
     <div className="min-h-screen bg-emerald-50 text-gray-900">
@@ -53,11 +55,18 @@ const Page = () => {
       {/* 🌿 Carousel Section */}
       <section className="py-16 bg-white text-center">
         <h2 className="text-3xl font-semibold mb-8">Wellness Services</h2>
-        <div className="relative max-w-3xl mx-auto overflow-hidden">
+        <div
+          className="relative max-w-3xl mx-auto overflow-hidden"
+          onMouseEnter={() => setPaused(true)}   // Pause on hover
+          onMouseLeave={() => setPaused(false)}  // Resume when leaving
+        >
           {/* Slide container */}
           <div
             className="flex transition-transform duration-[1500ms] ease-in-out"
-            style={{ transform: `translateX(-${current * 100}%)`, width: `${slides.length * 100}%` }}
+            style={{
+              transform: `translateX(-${current * 100}%)`,
+              width: `${slides.length * 100}%`,
+            }}
           >
             {slides.map((slide, index) => (
               <div
