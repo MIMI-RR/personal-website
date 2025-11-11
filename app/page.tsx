@@ -1,13 +1,44 @@
+"use client";
+import { useState, useEffect } from "react";
+
+const slides = [
+  {
+    title: "Holistic Health Coaching",
+    text: "Personalized wellness plans that nurture your physical, emotional, and spiritual well-being.",
+  },
+  {
+    title: "Trauma-Informed Yoga",
+    text: "Gentle yoga sessions that promote safety, healing, and self-awareness in every pose.",
+  },
+  {
+    title: "Nutrition Guidance",
+    text: "Learn how to nourish your body through balanced, mindful eating rooted in self-compassion.",
+  },
+  {
+    title: "Mindfulness Mentorship",
+    text: "One-on-one mentoring to help you integrate mindfulness and self-care into your daily life.",
+  },
+];
+
 const Page = () => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Header Section */}
-      <header className="text-center py-12 bg-indigo-600 text-white">
+    <div className="min-h-screen bg-emerald-50 text-gray-900">
+      {/* Header */}
+      <header className="text-center py-12 bg-emerald-600 text-white">
         <h1 className="text-4xl font-bold">Hello, I'm Jamilah</h1>
         <p className="text-xl mt-4">A passionate Health & Wellness Coach</p>
       </header>
 
-      {/* Bio Section */}
+      {/* About */}
       <section className="px-4 py-16 text-center">
         <h2 className="text-3xl font-semibold mb-6">About Me</h2>
         <p className="text-lg max-w-3xl mx-auto">
@@ -18,24 +49,41 @@ const Page = () => {
         </p>
       </section>
 
-      {/* Skills Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="text-center">
-          <h2 className="text-3xl font-semibold mb-6">Skills</h2>
-          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-lg">
-            <li>Holistic Health Coaching</li>
-            <li>Trauma-Informed Yoga</li>
-            <li>Nutrition & Wellness</li>
-            <li>Meditation & Mindfulness</li>
-            <li>Mental Health Support</li>
-            <li>Mentorship</li>
-            <li>Habit Building</li>
-            <li>Self-Care Practices</li>
-          </ul>
+      {/* 🌿 Carousel Section */}
+      <section className="py-16 bg-white text-center">
+        <h2 className="text-3xl font-semibold mb-8">Wellness Services</h2>
+        <div className="relative max-w-3xl mx-auto overflow-hidden">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${current * 100}%)`, width: `${slides.length * 100}%` }}
+          >
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className="min-w-full px-6 py-10 bg-emerald-100 rounded-2xl shadow-md"
+              >
+                <h3 className="text-2xl font-semibold mb-4">{slide.title}</h3>
+                <p className="text-lg">{slide.text}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrent(index)}
+                className={`w-3 h-3 rounded-full ${
+                  index === current ? "bg-emerald-600" : "bg-emerald-300"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact */}
       <section className="px-4 py-16 text-center">
         <h2 className="text-3xl font-semibold mb-6">Get in Touch</h2>
         <p className="text-lg mb-4">
@@ -44,14 +92,14 @@ const Page = () => {
         </p>
         <a
           href="mailto:jamilah@example.com"
-          className="text-xl text-indigo-600 hover:underline"
+          className="text-xl text-emerald-700 hover:underline"
         >
           jamilah@example.com
         </a>
       </section>
 
-      {/* Footer Section */}
-      <footer className="py-4 bg-gray-800 text-white text-center">
+      {/* Footer */}
+      <footer className="py-4 bg-emerald-700 text-white text-center">
         <p>Built with love using Next.js & Tailwind CSS</p>
         <p>&copy; 2025 Jamilah</p>
       </footer>
