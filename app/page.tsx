@@ -88,7 +88,7 @@ export default function Page() {
           style={{
             transform: `translateX(-${current * 100}%)`,
             width: `${slides.length * 100}%`,
-            transitionDuration: "5000ms", // ⬅️ smooth 5s glide
+            transitionDuration: "1s", // ⬅️ smooth 5s glide
           }}
         >
           {slides.map((slide, i) => (
