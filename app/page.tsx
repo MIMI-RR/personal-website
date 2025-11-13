@@ -82,24 +82,28 @@ export default function Page() {
           onTouchEnd={handleTouchEnd}
         >
           {/* Slides */}
-         <div
-            className="flex transition-transform duration-[1200ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
-            style={{
+         {/* Slides */}
+        <div
+          className="flex transition-transform ease-[cubic-bezier(0.45,0,0.15,1)]"
+          style={{
             transform: `translateX(-${current * 100}%)`,
             width: `${slides.length * 100}%`,
-              }}
-              >
-           
-            {slides.map((slide, i) => (
-              <div
-                key={i}
-                className="min-w-full flex flex-col justify-center items-center px-10 py-16"
-              >
-                <h3 className="text-2xl font-semibold mb-4 text-emerald-700">{slide.title}</h3>
-                <p className="text-lg max-w-md text-gray-700">{slide.text}</p>
-              </div>
-            ))}
-          </div>
+            transitionDuration: "5000ms", // ⬅️ smooth 5s glide
+          }}
+        >
+          {slides.map((slide, i) => (
+            <div
+              key={i}
+              className="min-w-full flex flex-col justify-center items-center px-10 py-16"
+            >
+              <h3 className="text-2xl font-semibold mb-4 text-emerald-700">
+                {slide.title}
+              </h3>
+              <p className="text-lg max-w-md text-gray-700">{slide.text}</p>
+            </div>
+          ))}
+        </div>
+          
 
           {/* Gradient fade edges */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent" />
