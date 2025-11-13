@@ -2,10 +2,100 @@
 import { useState } from "react";
 
 export default function Page() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-emerald-50 text-gray-900 flex flex-col">
+      {/* 🌿 Navigation Bar */}
+      <nav className="bg-emerald-700 text-white shadow-md fixed top-0 left-0 w-full z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold tracking-wide">Jamilah</h1>
+
+          {/* Desktop Links */}
+          <ul className="hidden md:flex space-x-8 text-lg font-medium">
+            <li>
+              <a href="#about" className="hover:text-emerald-200 transition-colors">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#services" className="hover:text-emerald-200 transition-colors">
+                Services
+              </a>
+            </li>
+            <li>
+              <a href="#contact" className="hover:text-emerald-200 transition-colors">
+                Contact
+              </a>
+            </li>
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-white focus:outline-none"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? (
+              <svg
+                className="w-7 h-7"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg
+                className="w-7 h-7"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        {menuOpen && (
+          <ul className="md:hidden bg-emerald-600 text-white text-center space-y-4 py-6">
+            <li>
+              <a
+                href="#about"
+                onClick={() => setMenuOpen(false)}
+                className="block hover:text-emerald-200 transition-colors"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                href="#services"
+                onClick={() => setMenuOpen(false)}
+                className="block hover:text-emerald-200 transition-colors"
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="block hover:text-emerald-200 transition-colors"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        )}
+      </nav>
+
       {/* 🌺 Header */}
-      <header className="text-center py-16 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-md">
+      <header className="text-center py-24 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-md mt-16">
         <h1 className="text-5xl font-bold tracking-tight">Hello, I'm Jamilah</h1>
         <p className="text-2xl mt-4 font-light">
           A passionate Health & Wellness Coach
@@ -13,7 +103,7 @@ export default function Page() {
       </header>
 
       {/* 🌼 About */}
-      <section className="px-6 py-20 text-center">
+      <section id="about" className="px-6 py-20 text-center">
         <h2 className="text-3xl font-semibold mb-8 text-emerald-800">About Me</h2>
         <p className="text-lg max-w-3xl mx-auto leading-relaxed">
           I'm a health and wellness coach dedicated to helping others create balance and healing
@@ -23,8 +113,11 @@ export default function Page() {
         </p>
       </section>
 
-      {/* 🌸 Services Summary (static instead of carousel) */}
-      <section className="py-20 bg-gradient-to-b from-white to-emerald-50 text-center">
+      {/* 🌸 Wellness Services */}
+      <section
+        id="services"
+        className="py-20 bg-gradient-to-b from-white to-emerald-50 text-center"
+      >
         <h2 className="text-3xl font-semibold mb-10 text-emerald-800">
           Wellness Services
         </h2>
@@ -72,7 +165,7 @@ export default function Page() {
       </section>
 
       {/* 🌸 Contact */}
-      <section className="px-6 py-20 text-center bg-white">
+      <section id="contact" className="px-6 py-20 text-center bg-white">
         <h2 className="text-3xl font-semibold mb-6 text-emerald-800">
           Get in Touch
         </h2>
